@@ -2,8 +2,11 @@
 
 {{ config(materialized='table') }}
 
-SELECT TO_CHAR(DATE_TRUNC('month', s.ts::timestamp), 'YYYY-MM-DD') AS month,
-       SUM(s.amount * s.totalvalue) AS total_sales
-FROM {{ source('public', 'saleslog') }} s
-GROUP BY month
-ORDER BY month ASC;
+with saleslog_monthly as (
+    select to_char(date_trunc('month', s.ts::timestamp), 'YYYY-MM-DD') as month,
+        sum(s.amount * s.totalvalue) as total_sales
+    from {{ source('public', 'saleslog') }} s
+    group by month
+)
+
+select * from saleslog_monthly
