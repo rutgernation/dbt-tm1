@@ -1,0 +1,22 @@
+# schema.yml
+
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: saleslog
+
+models:
+  - name: saleslog_monthly
+    description: "A table containing monthly sales data"
+    columns:
+      - name: month
+        description: "The first day of the month for which the sales data is aggregated"
+        tests:
+          - not_null
+          - unique
+      - name: total_sales
+        description: "The total sales for the corresponding month"
+        tests:
+          - not_null
