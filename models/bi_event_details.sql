@@ -1,4 +1,4 @@
--- dwh_event_details.sql
+-- bi_event_details.sql
 
 {{ config(materialized='table') }}
 
@@ -29,7 +29,7 @@ with event_details as (
     --  , e.productionid	    as production_id
         , pr.caption            as production            -- RW: tm.production bestaat niet, vervangen door join op customfieldvalues
 
-    FROM      public.events e
+    FROM      {{ ref('_bi_events_filtered') }} e
     LEFT JOIN public.systemtype sta         on sta.id = e.currentstatus
     LEFT JOIN public.customfieldvalues pr   on pr.id = e.productionid
     LEFT JOIN public.eventlocations el      on el.id = e.locationid
@@ -37,14 +37,6 @@ with event_details as (
     LEFT JOIN public.ticketlayout tl        on tl.id = e.ticketlayoutid
     LEFT JOIN public.seatingplan sp         on sp.id = e.seatingplanid
     LEFT JOIN public.pricelist pl           on pl.id = e.seatingplanpricelistid
-    WHERE 
-        e.startts		>= '2022-08-01' 
-        and e.startts	<= '2026-12-31' -- geen filter binnen dit seizoen/jaar anders mis je tickets in de verkooptotalen
-        and e.name		not like 'Borrelarrangement%' 
-        and e.name 		not like 'Theaterdiner%' 
-        and e.name		not like 'Ik wil er wel wat bij...-arrangement%' 
-        and e.name		not like 'Consumptiebon%'
-        
     ORDER BY 
         e.startts
       , e.name
