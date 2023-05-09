@@ -12,12 +12,12 @@ with tickets as (
     select distinct on (id) *
     from (
 
-        select id, orderid, currentstatus, tickettypeid, tickettypepriceid, price, servicecharge, locktypeid, bundleid, aboparentid, vouchercodeid, seatdescriptionnl, seatdescriptionfr, seatdescriptionde, seatrownumber, seatseatnumber, seatpriority, ticketholderid, ticketholdername, properties, lastupdatets
+        select id, orderid, currentstatus, tickettypeid, tickettypepriceid, price, servicecharge, locktypeid, bundleid, aboparentid, vouchercodeid, seatdescriptionnl, seatdescriptionfr, seatdescriptionde, seatrownumber, seatseatnumber, seatpriority, ticketholderid, ticketholdername, properties, deliveredts, lastupdatets
         from tickets_updated
 
         union
 
-        select id, orderid, currentstatus, tickettypeid, tickettypepriceid, price, servicecharge, locktypeid, bundleid, aboparentid, vouchercodeid, seatdescriptionnl, seatdescriptionfr, seatdescriptionde, seatrownumber, seatseatnumber, seatpriority, ticketholderid, ticketholdername, properties, lastupdatets
+        select id, orderid, currentstatus, tickettypeid, tickettypepriceid, price, servicecharge, locktypeid, bundleid, aboparentid, vouchercodeid, seatdescriptionnl, seatdescriptionfr, seatdescriptionde, seatrownumber, seatseatnumber, seatpriority, ticketholderid, ticketholdername, properties, deliveredts, lastupdatets
         from tickets_not_updated
 
     ) as combined_tickets

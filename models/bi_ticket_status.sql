@@ -31,8 +31,8 @@ with ticket_status as (
         ,pt.namenl                           ticket_pricetype
         ,lt.name                             ticket_locktype
         ,t.price                             ticket_price
-        --,DATE(t.deliveredts)                 ticket_delivered
-        --,t.deliveredts                       ticket_delivered_ts
+        ,DATE(t.deliveredts)                 ticket_delivered
+        ,t.deliveredts                       ticket_delivered_ts
     --  ,t.orderid                           ticket_orderid               -- irrelevant naast o.orderid
     --  ,t.orderprice                        ticket_orderrpice            -- irrelevant naast t.price (want overal gelijke waardes)
         
